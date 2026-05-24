@@ -13,7 +13,11 @@
 
 > Multi-repo workspace bootstrapper for **Claude Code**, **Cursor**, and **OpenAI Codex CLI**.
 
-`agentforge` turns a directory into an AI-aware workspace where one feature can span several repos in parallel, without losing track of which session is doing what. It scaffolds skill files for each supported AI CLI, manages per-feature git worktrees, and ships a handful of CLI commands for renaming features, entering background sessions, and keeping the master skill set in sync across agents.
+**You're a developer. You don't work on one thing at a time. And when you do, it never lives in one repo.**
+
+A bug fix touches the API and the admin panel. A feature ships PRs across three services. Tomorrow you're back on yesterday's work — and a teammate just edited the same files.
+
+`agentforge` makes that the default workflow — not the chaos. One feature = one slug = a git worktree per repo, side by side on disk. Multiple features in flight, each with its own AI session. Skills triggered by natural language — no commands to memorize. Finished work archived with enough context that next month's "how did we handle X?" returns a real answer.
 
 It does **not** ship its own AI runtime — bring your own Claude Code / Cursor / Codex CLI.
 
@@ -180,6 +184,26 @@ agentforge writes the same skill set into the file layout each AI CLI expects:
 
 Edit a file in `agentforge/skills/` and run `agentforge sync-skills` — every agent picks up the change with the previous version backed up to `.bak`.
 
+### How skills flow
+
+```
+   User runs:                         Source of truth:
+   ─────────────                      ─────────────────
+   agentforge add-skill    ─────→     agentforge/skills/<id>.md
+                                              │
+   agentforge sync-skills  ─────→             │  (renders the template into
+                                              │   each agent's expected layout)
+                                              ▼
+                            ┌─────────────────┼─────────────────┐
+                            ▼                 ▼                 ▼
+                     .claude/skills/    .cursor/rules/    .agents/skills/
+                      (Claude Code)        (Cursor)        (Codex CLI)
+```
+
+The master copy in `agentforge/skills/` is the **single source of truth**. The per-agent
+files are regenerated from it — never edit them directly; your changes will be
+overwritten on the next `sync-skills`.
+
 ---
 
 ## Internationalization
@@ -205,6 +229,43 @@ Skills are stored as templates with a `{{OUTPUT_LANGUAGE_INSTRUCTION}}` placehol
 - Slug format: `<YYMMDD>-<kind>-<core>` where `<kind>` is `feat` / `fix` / `refactor` / `chore`.
 - Branch names per repo follow each repo's own convention, detected from recent branches at feature-start time. They may differ from the slug.
 - `anvil/` only contains in-progress work. Completed features move to `artifacts/<YYYYMMDD>/<slug>/`.
+
+---
+
+## FAQ
+
+**Do I need Claude Code?**
+No. agentforge ships skills for Claude Code, Cursor, and OpenAI Codex CLI — pick one or install all three with `--agent all`. Skills are plain markdown rendered into each agent's expected layout.
+
+**I edited a skill, but my AI session doesn't seem to use the new version.**
+Skill files load at AI session startup. After `agentforge sync-skills` (or any edit to a master file), restart your AI CLI session — the in-memory copy in the running session won't pick up file changes.
+
+**My `.claude/skills/<id>/` is filling up with `SKILL.md.bak.N` files. Is that normal?**
+Yes — `sync-skills` always backs up the previous version before overwriting. Safe to clean up periodically:
+```bash
+find .claude/skills .cursor/rules .agents/skills -name "*.bak*" -delete
+```
+
+**Can I use this alongside Nx / Turborepo / Lerna / Bazel?**
+Yes — they're orthogonal. agentforge structures the **dev workflow** (per-feature worktrees, skill triggers, archives). Monorepo build tools structure the **build graph**. Use both.
+
+**Why git worktrees instead of just branches?**
+With worktrees, every feature is a separate working directory on disk. You can have one AI session open per feature, working in parallel without `git stash` / branch-switching dances. Each worktree has its own `node_modules` / build output if needed.
+
+**Branch name per repo isn't the slug — why?**
+Each repo can follow its own convention (`feature/<TICKET>-<topic>`, `feat/<slug>`, `<user>/<topic>`). `agentforge-feature-start` samples recent branches per repo to detect the pattern, then proposes a branch name that fits — the slug just names the worktree directory.
+
+**How do I write my own skill?**
+Run `agentforge add-skill` from inside the workspace — it scaffolds a master file under `agentforge/skills/<id>.md`, optionally seeded from `--from <file>`. Edit the markdown, then `agentforge sync-skills`. Existing skills in `agentforge/skills/` are good references for structure (frontmatter + body + `## Output language` block).
+
+**Windows support?**
+agentforge itself is plain Node.js and works on Windows. `git worktree` works on Windows too, but long path edge cases and shell-script-style command examples in some skills may surface issues — file an issue if you hit one.
+
+---
+
+## Contributing
+
+Architecture, build flow, and skill-author conventions live in [`CLAUDE.md`](./CLAUDE.md) — read that before opening a PR. Issues and pull requests welcome.
 
 ---
 
