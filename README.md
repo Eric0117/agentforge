@@ -4,6 +4,13 @@
   <img src="https://github.com/user-attachments/assets/68277906-3c7f-442e-a68d-2ab2631698ab" width="720" alt="agentforge" />
 </p>
 
+<p align="center">
+  <a href="https://www.npmjs.com/package/agentforge"><img src="https://img.shields.io/npm/v/agentforge.svg?style=flat-square" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/agentforge"><img src="https://img.shields.io/npm/dm/agentforge.svg?style=flat-square" alt="npm downloads" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/npm/l/agentforge.svg?style=flat-square" alt="license" /></a>
+  <img src="https://img.shields.io/node/v/agentforge.svg?style=flat-square" alt="node" />
+</p>
+
 > Multi-repo workspace bootstrapper for **Claude Code**, **Cursor**, and **OpenAI Codex CLI**.
 
 `agentforge` turns a directory into an AI-aware workspace where one feature can span several repos in parallel, without losing track of which session is doing what. It scaffolds skill files for each supported AI CLI, manages per-feature git worktrees, and ships a handful of CLI commands for renaming features, entering background sessions, and keeping the master skill set in sync across agents.
