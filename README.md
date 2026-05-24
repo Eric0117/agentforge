@@ -38,9 +38,10 @@ agentforge gives you a flat directory layout where every feature has its own per
 # Install
 npm install -g agentforge
 
-# Bootstrap a workspace
+# Bootstrap a workspace — interactive prompts walk you through
+# language (en / ko / ja) and which agents to install (Claude / Cursor / Codex)
 mkdir my-workspace && cd my-workspace
-agentforge init . --agent all --lang en
+agentforge init
 
 # Clone your repos into repos/
 git clone https://github.com/your-org/backend-api.git repos/backend-api
@@ -49,6 +50,8 @@ git clone https://github.com/your-org/admin-web.git repos/admin-web
 # Start working — open the AI CLI of your choice from the workspace root
 claude        # or: cursor . / codex
 ```
+
+> Prefer non-interactive? `agentforge init . --agent all --lang en --yes` skips every prompt.
 
 From inside the session, describe what you want in natural language. agentforge skills pick the right action — no command memorization needed:
 
