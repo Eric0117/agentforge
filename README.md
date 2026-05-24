@@ -1,7 +1,7 @@
 # agentforge
 
 <p align="center">
-  <img src="https://i.ibb.co/Kcknz08y/agentforge.png" width="720" alt="agentforge" />
+  <img src="https://raw.githubusercontent.com/Eric0117/agentforge/main/assets/agentforge.png" width="720" alt="agentforge" />
 </p>
 
 <p align="center">
@@ -49,7 +49,7 @@ agentforge init
 ```
 
 <p align="center">
-  <img src="https://i.ibb.co/tTmFbDHY/agentforge-init.png" width="720" alt="agentforge init — interactive prompts" />
+  <img src="https://raw.githubusercontent.com/Eric0117/agentforge/main/assets/agentforge-init.png" width="720" alt="agentforge init — interactive prompts" />
 </p>
 
 ```bash
