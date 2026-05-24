@@ -1,0 +1,46 @@
+{
+  "name": "agentforge",
+  "version": "0.1.0",
+  "description": "Multi-repo + git-worktree workspace bootstrapper for Claude Code, Cursor, and OpenAI Codex CLI",
+  "keywords": [
+    "claude-code",
+    "claude",
+    "cursor",
+    "codex",
+    "agent",
+    "ai",
+    "monorepo",
+    "multi-repo",
+    "worktree",
+    "workspace",
+    "cli",
+    "skills"
+  ],
+  "license": "MIT",
+  "author": "seunghwan-swing <seunghwan@theswing.co.kr>",
+  "bin": {
+    "agentforge": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc && node scripts/copy-templates.mjs && chmod +x dist/cli.js",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/prompts": "^2.4.9",
+    "typescript": "^5.4.0"
+  }
+}

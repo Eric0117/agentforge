@@ -1,0 +1,15 @@
+node_modules
+dist
+.DS_Store
+*.log
+
+# Don't commit dogfooding artifacts if someone runs `agentforge init .` here.
+# This is the CLI's source repo, not a workspace.
+.claude/
+.cursor/
+.agents/
+anvil/
+artifacts/
+repos/
+agentforge/
+*.bak*
