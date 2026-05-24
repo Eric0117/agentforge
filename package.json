@@ -1,5 +1,5 @@
 {
-  "name": "agentforge",
+  "name": "@eric0117/agentforge",
   "version": "0.1.0",
   "description": "Multi-repo + git-worktree workspace bootstrapper for Claude Code, Cursor, and OpenAI Codex CLI",
   "keywords": [

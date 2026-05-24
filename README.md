@@ -5,10 +5,10 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/agentforge"><img src="https://img.shields.io/npm/v/agentforge.svg?style=flat-square" alt="npm version" /></a>
-  <a href="https://www.npmjs.com/package/agentforge"><img src="https://img.shields.io/npm/dm/agentforge.svg?style=flat-square" alt="npm downloads" /></a>
-  <a href="./LICENSE"><img src="https://img.shields.io/npm/l/agentforge.svg?style=flat-square" alt="license" /></a>
-  <img src="https://img.shields.io/node/v/agentforge.svg?style=flat-square" alt="node" />
+  <a href="https://www.npmjs.com/package/@eric0117/agentforge"><img src="https://img.shields.io/npm/v/@eric0117/agentforge.svg?style=flat-square" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/@eric0117/agentforge"><img src="https://img.shields.io/npm/dm/@eric0117/agentforge.svg?style=flat-square" alt="npm downloads" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/npm/l/@eric0117/agentforge.svg?style=flat-square" alt="license" /></a>
+  <img src="https://img.shields.io/node/v/@eric0117/agentforge.svg?style=flat-square" alt="node" />
 </p>
 
 > Multi-repo workspace bootstrapper for **Claude Code**, **Cursor**, and **OpenAI Codex CLI**.
@@ -39,8 +39,8 @@ agentforge gives you a flat directory layout where every feature has its own per
 ## Quick start
 
 ```bash
-# Install
-npm install -g agentforge
+# Install (scoped package — command on PATH is still `agentforge`)
+npm install -g @eric0117/agentforge
 
 # Bootstrap a workspace — interactive prompts walk you through
 # language (en / ko / ja) and which agents to install (Claude / Cursor / Codex)
