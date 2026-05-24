@@ -17,7 +17,15 @@
     "skills"
   ],
   "license": "MIT",
-  "author": "seunghwan-swing <seunghwan@theswing.co.kr>",
+  "author": "Eric0117",
+  "homepage": "https://github.com/Eric0117/agentforge#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eric0117/agentforge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Eric0117/agentforge/issues"
+  },
   "bin": {
     "agentforge": "dist/cli.js"
   },
