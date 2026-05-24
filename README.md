@@ -42,7 +42,13 @@ npm install -g agentforge
 # language (en / ko / ja) and which agents to install (Claude / Cursor / Codex)
 mkdir my-workspace && cd my-workspace
 agentforge init
+```
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0eb690b2-afaf-475e-85f2-5ef33a99b118" width="720" alt="agentforge init — interactive prompts" />
+</p>
+
+```bash
 # Clone your repos into repos/
 git clone https://github.com/your-org/backend-api.git repos/backend-api
 git clone https://github.com/your-org/admin-web.git repos/admin-web
