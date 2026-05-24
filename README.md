@@ -1,5 +1,9 @@
 # agentforge
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/68277906-3c7f-442e-a68d-2ab2631698ab" width="720" alt="agentforge" />
+</p>
+
 > Multi-repo workspace bootstrapper for **Claude Code**, **Cursor**, and **OpenAI Codex CLI**.
 
 `agentforge` turns a directory into an AI-aware workspace where one feature can span several repos in parallel, without losing track of which session is doing what. It scaffolds skill files for each supported AI CLI, manages per-feature git worktrees, and ships a handful of CLI commands for renaming features, entering background sessions, and keeping the master skill set in sync across agents.
@@ -191,3 +195,4 @@ Skills are stored as templates with a `{{OUTPUT_LANGUAGE_INSTRUCTION}}` placehol
 ## License
 
 MIT.
+
