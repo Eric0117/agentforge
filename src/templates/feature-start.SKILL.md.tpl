@@ -370,6 +370,46 @@ Report success or failure per repo with the chosen branch and base:
     branch: <slug>                              (from origin/main; pattern detection fell back to slug)
 ```
 
+### Step 4.5 — Disable Claude Code bg-isolation per worktree
+
+If `claude` is among the workspace's installed agents (check
+`agentforge/config.json` `agents:` list), drop a project-local Claude Code
+settings file inside **each newly-created worktree** so background sessions
+dispatched there in Step 6 don't double-isolate:
+
+```bash
+# only for newly created worktrees (skip ones already in place in additive mode)
+for repo in <newly-created-repos>; do
+  mkdir -p "anvil/<slug>/$repo/.claude"
+  cat > "anvil/<slug>/$repo/.claude/settings.json" <<'EOF'
+{
+  "worktree": { "bgIsolation": "none" }
+}
+EOF
+done
+```
+
+**Why this matters:** Claude Code's bg-isolation guard normally requires
+`claude --bg` sessions to enter `.claude/worktrees/<id>/` before editing code,
+to prevent parallel bg jobs in one repo from clobbering each other. But
+agentforge already provides that isolation via `git worktree` — each feature
+has its own working directory. Stacking Claude Code's isolation on top causes:
+
+- Redundant double-isolation
+- `EnterWorktree` calls that invoke the user's `WorktreeCreate` hook (if any),
+  which often fails for environment-specific reasons (e.g. external hook
+  helpers that don't return a path)
+- bg sessions that get stuck before they can write any code
+
+Setting `worktree.bgIsolation: "none"` in the worktree's `.claude/settings.json`
+turns off the guard **only for sessions started in that worktree** — the
+project-local file overrides the user-global `~/.claude/settings.json`. Other
+non-agentforge bg jobs elsewhere on the system keep their isolation untouched.
+
+If `claude` is not in the agent list (Cursor-only or Codex-only workspace),
+skip this step entirely — `.claude/settings.json` is meaningless to those
+agents.
+
 ### Partial failure handling
 
 If `git worktree add` fails for some repos (auth, disk, conflict, etc.):
